@@ -25,7 +25,7 @@ function agregarArticulo(){
 }
 
 //Busca un artículo por indice y debería devolver el nombre para luego modificarlo
-// codificación en proceso (no me sale)
+// codificación en proceso (no me sale, se vuela la app)
 const buscarFaltante = (item) => {
     const indiceFaltante = faltantes.indexOf(item)
     alert('aca esta'+$(articulo))
