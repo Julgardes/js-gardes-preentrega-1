@@ -24,34 +24,63 @@ function agregarArticulo(){
     mostrarFaltantes()
 }
 
-//Busca un artículo por indice y debería devolver el nombre para luego modificarlo
-// codificación en proceso (no me sale, se vuela la app)
-const buscarFaltante = (item) => {
-    const indiceFaltante = faltantes.indexOf(item)
-    alert('aca esta'+$(articulo))
+//Modifica un artículo de la lista
+function cambiarArticulo(){
+    let nombreArticulo = faltantes[--codigoArticulo]
+    cambiaArticulo = prompt(("Artículo a modificar: " + nombreArticulo + "\n por: "))
+    faltantes[codigoArticulo] = cambiaArticulo
+    mostrarFaltantes()
 }
+
+//Borrado de un artículo de la lista
+function eliminarArticulo(){
+    let nombreAborrar = faltantes[--borrarArticulo]
+    confirma = prompt(("¿Está seguro que desea eliminar el artículo: " + nombreAborrar + "/n s/n"))
+    if (confirma == "s"){
+            faltantes.splice(borrarArticulo, 1)
+            mostrarFaltantes()
+    }else{
+        alert("El articulo permanecerá en la lista")
+        mostrarFaltantes()
+    }
+}
+
+//Envío de la lista a la direccion del proveedor que carga el usuario (simulación)
+function enviarMail(){
+    let enviandoArticulo = "Enviando la lista por e-mail ⏳ 📤 " + "(TOTAL: " + faltantes.length + "  artículos)"
+    let reloj = 0
+    for(item of faltantes){
+        reloj++
+        enviandoArticulo +=  "\n" + item + " ⏳ " 
+    }
+    alert(enviandoArticulo)
+} 
+
 
 //Menu de opciones para el usuario
 function menu(opcion){
     switch(opcion){
         case 1:
             agregarArticulo()
-            break;
-            
+            break
+
         case 2:
-            
-            codArticulo = prompt("Ingrese número de artículo a modificar ")
-            buscarFaltante(codArticulo)
-            
-            break;
+            codigoArticulo = prompt("Ingrese número de artículo a modificar ")
+            cambiarArticulo()            
+            break
 
         case 3:
-            prompt = mostrarFaltantes()
+            borrarArticulo = prompt("Ingrese el número del artículo a borrar")
+            eliminarArticulo()
+            break
 
-            /*alert("opcion incorrecta")*/
+        case 4:
+            mailProveedor = prompt("dirección de e-mail para envío de la lista: ")
+            enviarMail()
+            break
 
         default:
-            alert("La opción no existe")
+            alert("ERROR -- Elija una opción del 1 al 4")
     }
 }
 
@@ -60,11 +89,11 @@ function app(){
     let loop = true
     alert("EL PUNTERO LOCO \n Comencemos con el armado de la lista de mercaderia faltante")
     while (loop){
-        let opcion = parseInt(prompt("Menu: \n 1 - Agregar articulo \n 2 - Modificar articulo \n 3 - nada"))
+        let opcion = parseInt(prompt("LISTA DE ARTICULOS PARA ENVIAR AL PROVEEDOR: \n 1 - Agregar articulo \n 2 - Modificar articulo \n 3 - Eliminar articulo \n 4 - Enviar la lista al Proveedor X"))
         menu(opcion)
-        loop = confirm("desea seguir?")
+        loop = confirm("desea volver al Menú?")
     }
-    alert("carga finalizada")
+    alert("LISTA FINALIZADA")
 }
 
 app()
